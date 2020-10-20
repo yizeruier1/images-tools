@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫橙工具箱 - 更新日志</title>
+    <style>
+        body{
+            background-color: #DCDFE6;
+            margin: 0;
+            padding: 0;
+        }
+        #data{
+            width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background-color: #fff;
+            padding: 0 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="data">
+        <%=data%>
+    </div>
+</body>
+<script>
+    const tag = ['上线时间', '功能变更', '更改文件']
+    let data = document.getElementById('data')
+    let ctx = data.innerText.split('--------')
+    for (let i = 0; i < ctx.length; i++) {
+        tag.forEach(e => {
+            ctx[i] = ctx[i].replace(e, '<br />' + e)
+        })
+    }
+    data.innerHTML = ctx.join('<br /><br /><br />')
+</script>
+</html>

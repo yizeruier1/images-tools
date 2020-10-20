@@ -1,0 +1,19 @@
+{
+  "name": "tinypng",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "go": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "images": "^3.2.3",
+    "mvdir": "^1.0.19"
+  }
+}

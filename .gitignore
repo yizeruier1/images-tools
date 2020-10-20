@@ -1,0 +1,28 @@
+.DS_Store
+node_modules
+dist
+bats
+tools
+node-v14.13.1-x64.msi
+tools.bat
+工具箱升级日志.txt
+使用手册.txt
+炫橙科技
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

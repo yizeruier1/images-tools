@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>炫橙科技</title>
+    <style>
+        body,p,ul,li{
+            margin: 0;
+            padding: 0;
+        }
+        input{
+            outline: none !important;
+        }
+        input::-webkit-input-placeholder {
+            color: #919191;
+        }
+        .box{
+            width: 1280px;
+            height: auto;
+            overflow: hidden;
+            margin: 0 auto;
+            padding-left: 130px;
+            box-sizing: border-box;
+        }
+        .title{
+            display: block;
+            margin: 72px auto;
+        }
+
+        .row{
+            width: 100%;
+            min-height: 50px;
+            line-height: 50px;
+            overflow: hidden;
+            margin-bottom: 64px;
+        }
+        .col{
+            float: left;
+            min-height: 50px;
+        }
+        #label{
+            color: #2379f9;
+            font-size: 30px;
+        }
+        .button{
+            width: 120px;
+            height: 50px;
+            line-height: 48px;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+            background-color: #fb8f3f;
+            font-size: 30px;
+            border-radius: 6px;
+            transition: all ease .2s;
+        }
+        .button:active{
+            opacity: 0.5;
+        }
+        .shortbtn .button{
+            width: 100px;
+        }
+        .input{
+            width: 655px;
+            height: 50px;
+            color: #333;
+            font-size: 24px;
+            border: 2px solid #fb8f3f !important;
+            border-radius: 6px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .emuibtn{
+            background-color: #e63c3c;
+            font-size: 18px;
+            line-height: normal;
+        }
+        .oppobtn{
+            background-color: #22bf8e;
+            font-size: 18px;
+            line-height: normal;
+        }
+        .vivoinput{
+            border-color: #008cd6 !important;
+            width: 390px;
+        }
+        .emuiinput{
+            border-color: #e63c3c !important;
+        }
+        .oppoinput{
+            border-color: #22bf8e !important;
+        }
+        .vivo-h-btn{
+            background-color: #008cd6;
+            width: 150px !important;
+            height: 90px;
+            font-size: 24px;
+            line-height: 30px;
+            box-sizing: border-box;
+            padding-top: 14px;
+            font-size: 30px;
+        }
+        .emui-h-btn{
+            background-color: #e63c3c;
+            width: 150px !important;
+            height: 90px;
+            font-size: 40px;
+            line-height: 88px;
+        }
+        .oppo-h-btn{
+            background-color: #22bf8e;
+            width: 150px !important;
+            height: 90px;
+            font-size: 40px;
+            line-height: 88px;
+        }
+        /* 消息通知 */
+        .message{
+            width: 400px;
+            min-height: 50px;
+            box-sizing: border-box;
+            border-radius: 2px;
+            line-height: 50px;
+            padding: 0 20px;
+            position: fixed;
+            left: calc(50vw - 200px);
+            top: 60px;
+            transition: all ease .3s;
+            display: none;
+        }
+        .m-error{
+            border: 1px solid #fde2e2;
+            background-color: #fef0f0;
+            color: #f56c6c;
+        }
+        .m-success{
+            border: 1px solid #e1f3d8;
+            background-color: #f0f9eb;
+            color: #67c23a;
+        }
+        .version-log{
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            left: 30px;
+            top: 30px;
+        }
+        .version-log p{
+            font-size: 14px;
+            color: #333;
+            height: 20px;
+        }
+        .version-log a{
+            color: #008cd6;
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <img class="title" src="./title.png" alt="炫橙科技" />
+
+        <div class="row">
+            <div class="col" id="label" style="width: 144px;">
+                图标处理
+            </div>
+            <div class="col" style="width: 755px;">
+                <input type="text" class="input" id="iconUrl" />
+            </div>
+            <div class="col" style="width: 120px;">
+                <div class="button" id="iconBtn">运行</div>
+            </div>
+        </div>
+
+        <div class="row" id="setPx" style="margin-bottom: 74px;">
+            <div class="col" id="label" style="width: 144px;">
+                改分辨率
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">1920</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2160</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2280</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2340</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2400</div>
+            </div>
+            <div class="col" style="width: 189px;margin-left: 144px;">
+                <div class="button">2430</div>
+            </div>
+            <div class="col" style="width: 189px;">
+                <div class="button">2520</div>
+            </div>
+            <div class="col" style="width: 189px;">
+                <div class="button">2640</div>
+            </div>
+            <div class="col" style="width: 189px;">
+                <div class="button">3168</div>
+            </div>
+            <div class="col" style="width: 189px;">
+                <div class="button" style="background-color: #3f5efb;">默认</div>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-bottom:30px;">
+            <div class="col" style="width:755px;margin-left:144px;">
+                <input type="text" class="input" placeholder="截图保存路径" id="screenshotSavePath" />
+            </div>
+        </div>
+        <div class="row shortbtn" style="margin-bottom:40px;height:130px;">
+            <div class="col" id="label" style="width: 144px;">
+                一键截图
+            </div>
+            <div class="col" style="width: 220px;">
+                <div class="button screenshot" style="width: 200px;">一键截图</div>
+            </div>
+            <div class="col" style="width: 138px;">
+                <div class="button screenshot">vivo</div>
+            </div>
+            <div class="col" style="width: 138px;">
+                <div class="button screenshot emuibtn">EMUI<br />1920</div>
+            </div>
+            <div class="col" style="width: 138px;">
+                <div class="button screenshot emuibtn">EMUI<br />2160</div>
+            </div>
+            <div class="col" style="width: 138px;">
+                <div class="button screenshot oppobtn">OPPO<br />自动截图</div>
+            </div>
+            <div class="col" style="width: 138px;">
+                <div class="button screenshot oppobtn">OPPO<br />半自动截图</div>
+            </div>
+            <div class="col" style="width:138px;margin-left:144px;margin-top:20px;">
+                <div class="button set0706">0706</div>
+            </div>
+            <div class="col" style="width:138px;margin-top:20px;">
+                <div class="button set0808">0808</div>
+            </div>
+            <div class="col" style="width:138px;margin-top:20px;">
+                <div class="button oppobtn resize-img" style="line-height:50px !important;">图片去黑边</div>
+            </div>
+            <div class="col" style="width:138px;margin-top:20px;">
+                <div class="button oppobtn init-preview" style="line-height:50px !important;">生成预览图</div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col" id="label" style="width: 144px;">
+                锁屏测试
+            </div>
+            <div class="col" style="width: 755px;">
+                <input type="text" class="input" style="border-color: #008cd6 !important" placeholder="vivo锁屏路径" id="vivoLockDir" />
+            </div>
+        </div>
+
+        <div class="row shortbtn" style="margin-bottom: 60px;">
+            <div class="col" style="width: 500px;margin-left: 144px;">
+                <div class="button vivo-h-btn" style="width: 370px !important;line-height: 62px !important;font-size: 40px;" id="vivoLockBtnCn">vivo国内</div>
+            </div>
+            <div class="col" style="width: 400px;">
+                <div class="button vivo-h-btn" style="width: 370px !important;line-height: 62px !important;font-size: 40px;" id="vivoLockBtnEn">vivo海外</div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col" style="width: 755px;margin-left: 144px;">
+                <input type="text" class="input" style="border-color: #e63c3c !important" placeholder="EMUI锁屏路径" id="emuiLockDir" />
+            </div>
+        </div>
+
+        <div class="row shortbtn" style="margin-bottom: 60px;">
+            <div class="col" style="width: 500px;margin-left: 144px;">
+                <div class="button emui-h-btn" style="width: 370px !important;" id="emuiLockBtnCn">EMUI国内</div>
+            </div>
+            <div class="col" style="width: 400px;">
+                <div class="button emui-h-btn" style="width: 370px !important;" id="emuiLockBtnEn">EMUI海外</div>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col" style="width: 410px;margin-left: 144px;">
+                <input type="text" class="input" style="border-color: #22bf8e !important" placeholder="OPPO锁屏路径" id="oppoLockDir" />
+            </div>
+        </div>
+
+        <div class="row shortbtn" style="margin-bottom: 60px;">
+            <div class="col" style="width: 500px;margin-left: 144px;">
+                <div class="button oppo-h-btn" style="width: 370px !important;" id="oppoLockBtnCn">OPPO国内</div>
+            </div>
+            <div class="col" style="width: 400px;">
+                <div class="button oppo-h-btn" style="width: 370px !important;" id="oppoLockBtnEn">OPPO海外</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="message m-success animate__animated animate__fadeInDown"></div>
+    <div class="message m-error animate__animated animate__fadeInDown"></div>
+
+    <div class="version-log">
+        <p>当前版本：v1.1</p>
+        <a href="./logs">查看更新日志</a>
+    </div>
+</body>
+<script>
+    let loading = false  // 请求中 状态
+    let iconLoading = false  // 处理图标状态， 每次间隔至少三秒
+    let lockLoading = false  // 锁屏推送状态
+    const setPxArr = [
+        '/set1920Px',
+        '/set2160Px',
+        '/set2280Px',
+        '/set2340Px',
+        '/set2400Px',
+        '/set2430Px',
+        '/set2520Px',
+        '/set2640Px',
+        '/set3168Px',
+        '/setDefault'
+    ]
+    const screenshotArr = [
+        '/oneKeyScreenShot',
+        '/vivoScreenShot',
+        '/hw1920ScreenShot',
+        '/hw2160ScreenShot',
+        '/oppoAutoScreenShot',
+        '/oppoHalfAutoScreenShot'
+    ]
+    function $(sel, muti){
+        if (muti) {
+            return document.querySelectorAll(sel)
+        } else {
+            return document.querySelector(sel)
+        }
+    }
+    let resTip = $('.m-success')
+    let errTip = $('.m-error')
+    let tipTimer = null
+    // 显示通知 100 -> 成功， 其他值为失败
+    function showTip(tag, msg){
+        let dom = tag === 100 ? resTip : errTip
+        dom.style.display = 'none'
+        clearTimeout(tipTimer)
+        dom.innerHTML = msg
+        dom.style.display = 'block'
+        tipTimer = setTimeout(() => {
+            dom.style.display = 'none'
+        }, 2000)
+    }
+</script>
+
+<script>
+    const setPxBtns = $('#setPx .button', true)  // 设置分辨率的按钮
+    const screenshotBtns = $('.screenshot', true)  // 截图按钮
+    const iconUrl = $('#iconUrl')  // 处理图片输入的地址
+    const iconBtn = $('#iconBtn')  // 处理图片按钮
+    const screenshotSavePath = $('#screenshotSavePath')  // 截图保存地址
+
+    // 锁屏推送
+    const vivoLockDir = $('#vivoLockDir')
+    const vivoLockBtnCn = $('#vivoLockBtnCn')
+    const vivoLockBtnEn = $('#vivoLockBtnEn')
+
+    const emuiLockDir = $('#emuiLockDir')
+    const emuiLockBtnCn = $('#emuiLockBtnCn')
+    const emuiLockBtnEn = $('#emuiLockBtnEn')
+
+    const oppoLockDir = $('#oppoLockDir')
+    const oppoLockBtnCn = $('#oppoLockBtnCn')
+    const oppoLockBtnEn = $('#oppoLockBtnEn')
+
+    const resizeImg = $('.resize-img')  // 调整截图大小
+    // 两个设置时间的按钮
+    const set0706 = $('.set0706')
+    const set0808 = $('.set0808')
+
+    const previewBtn = $('.init-preview')
+
+
+    // 修改分辨率
+    setPxBtns.forEach((item, index) => {
+        item.onclick = function(){
+            if (loading) {
+                showTip(0, '点击速度过快！')
+                return false
+            }
+            loading = true
+            axios.get(setPxArr[index]).then(function (res) {
+                showTip(res.data.code, res.data.msg)
+                loading = false
+            }).catch(function (err) {
+                showTip(0, err)
+                loading = false
+            })
+        }
+    })
+
+    // 处理图标
+    iconBtn.onclick = function(){
+        let url = iconUrl.value
+        if (url === '') {
+            showTip(0, '图标路径错误！')
+            return false
+        }
+        if (!iconLoading) {
+            url = url.replace(/\\/g, '/')
+            iconLoading = true
+            axios.get('/resizeIcon?path=' + url)
+            setTimeout(() => {
+                iconLoading = false
+            }, 3000)
+        } else {
+            showTip(0, '点击速度过快！')
+            return false
+        }
+    }
+
+    // 截图
+    screenshotBtns.forEach((item, index) => {
+        item.onclick = function(){
+            let path = screenshotSavePath.value
+            if (path === '') {
+                showTip(0, '请填写截图保存路径！')
+                return false
+            }
+            if (loading) {
+                showTip(0, '点击速度过快！')
+                return false
+            }
+            loading = true
+            path = path.replace(/\\/g, '/')
+            axios.get(screenshotArr[index] + '?path=' + path).then(function (res) {
+                showTip(res.data.code, res.data.msg)
+                loading = false
+            }).catch(function (err) {
+                showTip(0, err)
+                loading = false
+            })
+        }
+    })
+
+    // 调整截图大小
+    resizeImg.onclick = function(){
+        let path = screenshotSavePath.value
+        path = path.replace(/\\/g, '/')
+        if (path === '') {
+            showTip(0, '请填写截图保存路径！')
+            return false
+        }
+        axios.get('/generateOppoImg?path=' + path).then(function (res) {
+            showTip(res.data.code, res.data.msg)
+        }).catch(function (err) {
+            showTip(0, err)
+        })
+    }
+
+    // 测锁屏 推送 vivo
+    vivoLockBtnCn.onclick = function(){  // 国内
+        let url = vivoLockDir.value
+        if (url === '') {
+            showTip(0, '输入路径错误！')
+            return false
+        }
+        if (!lockLoading) {
+            url = url.replace(/\\/g, '/')
+            lockLoading = true
+            axios.get('/vivoLocks?path=' + url).then(res => {
+                showTip(100, res.data.msg)
+                lockLoading = false
+            }).catch(err => {
+                showTip(0, err)
+                lockLoading = false
+            })
+        } else {
+            showTip(0, '点击速度过快！')
+            return false
+        }
+    }
+    vivoLockBtnEn.onclick = function(){  // 海外
+        let url = vivoLockDir.value
+        if (url === '') {
+            showTip(0, '输入路径错误！')
+            return false
+        }
+        if (!lockLoading) {
+            url = url.replace(/\\/g, '/')
+            lockLoading = true
+            axios.get('/vivoLocksEn?path=' + url).then(res => {
+                showTip(100, res.data.msg)
+                lockLoading = false
+            }).catch(err => {
+                showTip(0, err)
+                lockLoading = false
+            })
+        } else {
+            showTip(0, '点击速度过快！')
+            return false
+        }
+    }
+
+    // 锁屏推送 华为
+    emuiLockBtnCn.onclick = function(){  // 国内
+        let url = emuiLockDir.value
+        if (url === '') {
+            showTip(0, '输入路径错误！')
+            return false
+        }
+        if (!lockLoading) {
+            url = url.replace(/\\/g, '/')
+            lockLoading = true
+            axios.get('/emuiLocks?path=' + url).then(res => {
+                showTip(100, res.data.msg)
+                lockLoading = false
+            }).catch(err => {
+                showTip(0, err)
+                lockLoading = false
+            })
+        } else {
+            showTip(0, '点击速度过快！')
+            return false
+        }
+    }
+    emuiLockBtnEn.onclick = function(){  // 海外
+        let url = emuiLockDir.value
+        if (url === '') {
+            showTip(0, '输入路径错误！')
+            return false
+        }
+        if (!lockLoading) {
+            url = url.replace(/\\/g, '/')
+            axios.get('/emuiLocksEn?path=' + url).then(res => {
+                showTip(100, res.data.msg)
+            }).catch(err => {
+                showTip(0, err)
+            })
+        } else {
+            showTip(0, '点击速度过快！')
+            return false
+        }
+    }
+
+    // 锁屏推送 OPPO
+    oppoLockBtnCn.onclick = function(){  // 国内
+        let url = oppoLockDir.value
+        if (url === '') {
+            showTip(0, '输入路径错误！')
+            return false
+        }
+        if (!lockLoading) {
+            url = url.replace(/\\/g, '/')
+            lockLoading = true
+            axios.get('/oppoLocks?path=' + url).then(res => {
+                showTip(100, res.data.msg)
+                lockLoading = false
+            }).catch(err => {
+                showTip(0, err)
+                lockLoading = false
+            })
+        } else {
+            showTip(0, '点击速度过快！')
+            return false
+        }
+    }
+    oppoLockBtnEn.onclick = function(){  // 海外
+        // let url = oppoLockDir.value
+        // if (url === '') {
+        //     showTip(0, '输入路径错误！')
+        //     return false
+        // }
+        // if (!lockLoading) {
+        //     url = url.replace(/\\/g, '/')
+        //     lockLoading = true
+        //     axios.get('/oppoLocksEn?path=' + url).then(res => {
+        //         showTip(100, res.data.msg)
+        //         lockLoading = false
+        //     }).catch(err => {
+        //         showTip(0, err)
+        //         lockLoading = false
+        //     })
+        // } else {
+        //     showTip(0, '点击速度过快！')
+        //     return false
+        // }
+    }
+
+    // 设置时间
+    set0706.onclick = function(){
+        axios.get('/set0706').then(function (res) {
+            showTip(res.data.code, res.data.msg)
+        }).catch(function (err) {
+            showTip(0, err)
+        })
+    }
+    set0808.onclick = function(){
+        axios.get('/set0808').then(function (res) {
+            showTip(res.data.code, res.data.msg)
+        }).catch(function (err) {
+            showTip(0, err)
+        })
+    }
+
+    // 生成预览图
+    previewBtn.onclick = function(){
+        let path = screenshotSavePath.value
+        path = path.replace(/\\/g, '/')
+        if (path === '') {
+            showTip(0, '请填写图片所在目录！')
+            return false
+        }
+        axios.get('/generatePreview?path=' + path)
+    }
+</script>
+</html>

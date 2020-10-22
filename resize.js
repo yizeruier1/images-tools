@@ -48,12 +48,19 @@ async function copyBat(url) {
 function imageHandler(url){
     console.log('开始处理图标')
     const vivoDir = `${url}/vivo`
+    const vivoEnDir = `${url}/vivo海外`
     const oppoDir = `${url}/OPPO`
 
     readDir(vivoDir).then(files => {
         generateImg(files, vivoDir, vivo.width, vivo.height)
     }).catch(err => {
         console.log(`读取目录 ${vivoDir} 出错, 原因 ${err}`)
+    })
+
+    readDir(vivoEnDir).then(files => {
+        generateImg(files, vivoEnDir, vivo.width, vivo.height)
+    }).catch(err => {
+        console.log(`读取目录 ${vivoEnDir} 出错, 原因 ${err}`)
     })
 
     readDir(oppoDir).then(files => {
@@ -96,7 +103,7 @@ function resizeOppoImg(path){
     const files = fs.readdirSync(path)
     const tasks = []
     let has2400 = ''  // 保存2400的路径，用来放大为3168
-    imgs = [ 1920, 2160, 2280, 2340, 2400 ]
+    imgs = [1920, 2160, 2280, 2340, 2400]
     for(let i = 0; i < files.length; i++) {
         imgs.forEach(item => {
             if (files[i].indexOf(item + '') > -1) tasks.push({ src: `${path}/${files[i]}`, h: item })

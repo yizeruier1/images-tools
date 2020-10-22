@@ -300,13 +300,25 @@
                 <div class="button oppo-h-btn" style="width: 370px !important;" id="oppoLockBtnEn">OPPO海外</div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col" id="label" style="width: 144px;">
+                原创声明
+            </div>
+            <div class="col" style="width: 755px;">
+                <input type="text" class="input" id="originalName" placeholder="中文名--海外名" />
+            </div>
+            <div class="col" style="width: 120px;">
+                <div class="button" id="originalBtn">运行</div>
+            </div>
+        </div>
     </div>
     
     <div class="message m-success animate__animated animate__fadeInDown"></div>
     <div class="message m-error animate__animated animate__fadeInDown"></div>
 
     <div class="version-log">
-        <p>当前版本：v1.1</p>
+        <p>当前版本：v1.2</p>
         <a href="./logs">查看更新日志</a>
     </div>
 </body>
@@ -362,6 +374,10 @@
     const screenshotBtns = $('.screenshot', true)  // 截图按钮
     const iconUrl = $('#iconUrl')  // 处理图片输入的地址
     const iconBtn = $('#iconBtn')  // 处理图片按钮
+    
+    const originalName = $('#originalName')  // 原创声明名字
+    const originalBtn = $('#originalBtn')
+    
     const screenshotSavePath = $('#screenshotSavePath')  // 截图保存地址
 
     // 锁屏推送
@@ -616,6 +632,23 @@
             return false
         }
         axios.get('/generatePreview?path=' + path)
+    }
+
+    // 生成原创声明
+    originalBtn.onclick = function(){
+        let path = screenshotSavePath.value
+        let name = originalName.value
+        path = path.replace(/\\/g, '/')
+        if (path === '') {
+            showTip(0, '请填写保存路径！')
+            return false
+        }
+        if (name === '') {
+            showTip(0, '请填写主题名称！')
+            return false
+        }
+
+        axios.get('/generateOriginal?path=' + path + '&name=' + name)
     }
 </script>
 </html>

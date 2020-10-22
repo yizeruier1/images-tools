@@ -3,6 +3,7 @@ node_modules
 dist
 bats
 tools
+assets
 node-v14.13.1-x64.msi
 tools.bat
 工具箱升级日志.txt

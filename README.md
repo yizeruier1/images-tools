@@ -5,3 +5,4 @@
 + apis/initPreview.js -> 压缩图片大小、拼合图片
 + apis/setPx.js -> 执行 bat 批处理文件
 + config.js -> 删除目录
++ apis/initOriginal.js -> node-canvas 加载中文字体，绘制中文

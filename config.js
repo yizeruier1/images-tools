@@ -47,7 +47,7 @@ module.exports = {
         width: 180,
         height: 180
     },
-    pxMap: [1920, 2160, 2280, 2340, 2400, 2640],
+    pxMap: [1920, 2160, 2280, 2340, 2400, 2640, 3168],
 
     // 图标分类bat 路径
     deskBatPath: 'C:/tools/bats/A图标分类7.5.bat',

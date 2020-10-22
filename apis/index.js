@@ -3,6 +3,7 @@ const screenshot = require('./screenshot')
 const lockScreen = require('./lockScreen')
 const setTime = require('./setTime')
 const { generatePreview } = require('./initPreview')
+const { generateOriginal } = require('./initOriginal')
 
 module.exports = [
     { path: '/set1920Px', ctx: setPx.set1920Px },
@@ -33,5 +34,7 @@ module.exports = [
     { path: '/set0706', ctx: setTime.set0706 },
     { path: '/set0808', ctx: setTime.set0808 },
 
-    { path: '/generatePreview', ctx: generatePreview }
+    { path: '/generatePreview', ctx: generatePreview },
+
+    { path: '/generateOriginal', ctx: generateOriginal }
 ]

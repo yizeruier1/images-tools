@@ -312,6 +312,26 @@
                 <div class="button" id="originalBtn">运行</div>
             </div>
         </div>
+
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col" id="label" style="width: 144px;">
+                帧动画
+            </div>
+            <div class="col" style="width: 755px;">
+                <input type="text" class="input" id="frameAnimationImg" placeholder="制作帧动画的素材图片" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="label" style="width: 144px;">
+                帧率
+            </div>
+            <div class="col" style="width: 130px;">
+                <input type="text" class="input" id="frameRate" style="width:100px;" />
+            </div>
+            <div class="col" style="width: 120px;">
+                <div class="button" id="frameAnimationBtn">运行</div>
+            </div>
+        </div>
     </div>
     
     <div class="message m-success animate__animated animate__fadeInDown"></div>
@@ -397,8 +417,13 @@
     // 两个设置时间的按钮
     const set0706 = $('.set0706')
     const set0808 = $('.set0808')
-
     const previewBtn = $('.init-preview')
+
+
+    // 帧动画
+    const frameAnimationImg = $('#frameAnimationImg')
+    const frameRate = $('#frameRate')
+    const frameAnimationBtn = $('#frameAnimationBtn')
 
 
     // 修改分辨率
@@ -649,6 +674,20 @@
         }
 
         axios.get('/generateOriginal?path=' + path + '&name=' + name)
+    }
+
+
+    // 生成帧动画
+    frameAnimationBtn.onclick = function(){
+        let path = frameAnimationImg.value
+        const rate = frameRate.value
+        path = path.replace(/\\/g, '/')
+        if (path === '' || rate === '') {
+            showTip(0, '图片路径或帧率不能为空！')
+            return false
+        }
+
+        axios.get('/createFrameAnimation?path=' + path + '&frameRate=' + rate)
     }
 </script>
 </html>

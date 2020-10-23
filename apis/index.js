@@ -4,6 +4,7 @@ const lockScreen = require('./lockScreen')
 const setTime = require('./setTime')
 const { generatePreview } = require('./initPreview')
 const { generateOriginal } = require('./initOriginal')
+const { createFrameAnimation } = require('./frameAnimation')
 
 module.exports = [
     { path: '/set1920Px', ctx: setPx.set1920Px },
@@ -36,5 +37,7 @@ module.exports = [
 
     { path: '/generatePreview', ctx: generatePreview },
 
-    { path: '/generateOriginal', ctx: generateOriginal }
+    { path: '/generateOriginal', ctx: generateOriginal },
+
+    { path: '/createFrameAnimation', ctx: createFrameAnimation }
 ]

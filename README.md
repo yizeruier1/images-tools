@@ -6,3 +6,4 @@
 + apis/setPx.js -> 执行 bat 批处理文件
 + config.js -> 删除目录
 + apis/initOriginal.js -> node-canvas 加载中文字体，绘制中文
++ apis/frameAnimation.js -> node-canvas 裁剪图片，生成圆角图片

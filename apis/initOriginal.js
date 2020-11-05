@@ -62,7 +62,7 @@ function generateOriginal (req, res) {
                 ctx.drawImage(img, 0, 0, imgw, imgh)
                 ctx.fillStyle = "#838381"
                 ctx.font = '18px simhei'
-                const x = index === 0 ? (166 - item.length * letterWidth) / 2 : (166 - item.length * letterWidthEn) / 2
+                const x = (/^[a-zA-Z]/).test(item) ? (166 - item.length * letterWidthEn) / 2 : (166 - item.length * letterWidth) / 2
                 // 名字
                 ctx.fillText(item, nameX + x, 197)
                 //时间

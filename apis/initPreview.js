@@ -28,7 +28,7 @@ function generateVivoPreview (path, originPath) {
     const ctx = images(`${originPath}/vivo.png`)
     const batImg = images(path)
 
-    tinyPng('', ctx.draw(vivoSignal, 0, 0).draw(batImg, 946, 20), `${originPath}/vivo1920.jpg`)
+    tinyPng('', ctx.draw(vivoSignal, 0, 0).draw(batImg, 950, 4), `${originPath}/vivo1920.jpg`)
 }
 
 // 参数1 - 图片路径

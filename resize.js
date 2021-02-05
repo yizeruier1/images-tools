@@ -15,7 +15,7 @@ async function resizeIcon(url){
     isDir(url).then(async res => {
         const files = fs.readdirSync(url)
         // 文件数量超过 54， 执行 bat 进行分类
-        if (files.length > 54) {
+        if (files.length > 1) {
             // 有 分类bat 直接执行   没有则从桌面复制一份
             if (!files.some(item => item === 'A图标分类7.5.bat')) {
                 await copyBat(url)
@@ -103,7 +103,7 @@ function resizeOppoImg(path){
     const files = fs.readdirSync(path)
     const tasks = []
     let has2400 = ''  // 保存2400的路径，用来放大为3168
-    imgs = [1920, 2160, 2280, 2340, 2400]
+    imgs = [1920, 2160, 2256, 2280, 2316, 2340, 2376, 2400, 2408, 2460]
     for(let i = 0; i < files.length; i++) {
         imgs.forEach(item => {
             if (files[i].indexOf(item + '') > -1) tasks.push({ src: `${path}/${files[i]}`, h: item })
@@ -156,6 +156,24 @@ function resizeOppoImg(path){
                         console.log(`${has2400} - 处理失败，原因：${err}`)
                     } else {
                         console.log(`${has2400} -> 1440x3168 处理成功`)
+                    }
+                })
+            }).catch(err1 => {
+                console.log(err1)
+            })
+
+            loadImage(data).then((image) => {
+                const canvas = createCanvas(1440, 3216)
+                const ctx = canvas.getContext('2d')
+                const x = -3
+                const y = 0
+                ctx.drawImage(image, x, y, 1446, 3216)
+
+                fs.writeFile(`${path}/OPPO3216.png`, canvas.toBuffer(), (err) => {
+                    if (err) {
+                        console.log(`${has2400} - 处理失败，原因：${err}`)
+                    } else {
+                        console.log(`${has2400} -> 1440x3216 处理成功`)
                     }
                 })
             }).catch(err1 => {

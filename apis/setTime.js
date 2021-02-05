@@ -12,7 +12,7 @@ const set0706 = function(req, res){
     }).catch(() => {
         res.send({
             code: 0,
-            msg: '设置时间 0706 失败！'
+            msg: '设置时间 1000 失败！'
         })
     })
 }

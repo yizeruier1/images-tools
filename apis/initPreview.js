@@ -24,11 +24,12 @@ function generatePreview (req, res) {
 }
 
 function generateVivoPreview (path, originPath) {
-    const vivoSignal = images('./assets/vivo_preview_signal.png')
+    // const vivoSignal = images('./assets/vivo_preview_signal.png')
     const ctx = images(`${originPath}/vivo.png`)
     const batImg = images(path)
 
-    tinyPng('', ctx.draw(vivoSignal, 0, 0).draw(batImg, 950, 4), `${originPath}/vivo1920.jpg`)
+    // tinyPng('', ctx.draw(vivoSignal, 0, 0).draw(batImg, 950, 4), `${originPath}/vivo1920.jpg`)
+    tinyPng('', ctx.draw(batImg, 954, 4), `${originPath}/vivo1920.jpg`)
 }
 
 // 参数1 - 图片路径

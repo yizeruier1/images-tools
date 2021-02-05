@@ -7,8 +7,6 @@ const fs = require('fs')
 
 const needCopyFiles = [
     { name: '/lockscreen', origin: 'C:/tools/bats/自检工具锁屏测试/lockscreen' },
-    { name: '/lockscreen2.5', origin: 'C:/tools/bats/自检工具锁屏测试/lockscreen2.5'},
-    { name: '/vivo2.5', origin: 'C:/tools/bats/自检工具锁屏测试/vivo2.5'},
     { name: '/vivo3.0', origin: 'C:/tools/bats/自检工具锁屏测试/vivo3.0'}
 ]
 
@@ -30,6 +28,8 @@ const vivoLocks = function (req,res) {
                 // 删除文件
                 needCopyFiles.forEach(item => delDir(path + item.name))
                 fs.unlinkSync(path + '/vivo国内测试.bat')
+                fs.unlinkSync(path + '/lockscreen.itz')
+                fs.unlinkSync(path + '/vivo3.0locktest.itz')
                 return false
             }).catch(err =>{
                 res.send({
@@ -39,6 +39,8 @@ const vivoLocks = function (req,res) {
                 // 删除文件
                 needCopyFiles.forEach(item => delDir(path + item.name))
                 fs.unlinkSync(path + '/vivo国内测试.bat')
+                fs.unlinkSync(path + '/lockscreen.itz')
+                fs.unlinkSync(path + '/vivo3.0locktest.itz')
                 return false
             })
         }).catch(err => {

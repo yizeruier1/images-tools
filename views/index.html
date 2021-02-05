@@ -138,7 +138,7 @@
             color: #67c23a;
         }
         .version-log{
-            width: 100px;
+            width: 120px;
             height: 100px;
             position: fixed;
             left: 30px;
@@ -154,8 +154,8 @@
             font-size: 14px;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./animate.css" />
+    <script src="./axios.js"></script>
 </head>
 
 <body>
@@ -185,19 +185,34 @@
                 <div class="button">2160</div>
             </div>
             <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2256</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
                 <div class="button">2280</div>
             </div>
             <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2316</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;margin-left: 144px;">
                 <div class="button">2340</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2376</div>
             </div>
             <div class="col" style="width: 189px;margin-bottom: 30px;">
                 <div class="button">2400</div>
             </div>
-            <div class="col" style="width: 189px;margin-left: 144px;">
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
+                <div class="button">2408</div>
+            </div>
+            <div class="col" style="width: 189px;margin-bottom: 30px;">
                 <div class="button">2430</div>
             </div>
+            <div class="col" style="width: 189px;margin-left: 144px;">
+                <div class="button">2460</div>
+            </div>
             <div class="col" style="width: 189px;">
-                <div class="button">2520</div>
+                <div class="button">3216</div>
             </div>
             <div class="col" style="width: 189px;">
                 <div class="button">2640</div>
@@ -209,7 +224,6 @@
                 <div class="button" style="background-color: #3f5efb;">默认</div>
             </div>
         </div>
-
 
         <div class="row" style="margin-bottom:30px;">
             <div class="col" style="width:755px;margin-left:144px;">
@@ -239,16 +253,22 @@
                 <div class="button screenshot oppobtn">OPPO<br />半自动截图</div>
             </div>
             <div class="col" style="width:138px;margin-left:144px;margin-top:20px;">
-                <div class="button set0706">0706</div>
+                <div class="button set0706">10:00</div>
             </div>
             <div class="col" style="width:138px;margin-top:20px;">
-                <div class="button set0808">0808</div>
+                <div class="button set0808">08:08</div>
             </div>
             <div class="col" style="width:138px;margin-top:20px;">
                 <div class="button oppobtn resize-img" style="line-height:50px !important;">图片去黑边</div>
             </div>
             <div class="col" style="width:138px;margin-top:20px;">
                 <div class="button oppobtn init-preview" style="line-height:50px !important;">生成预览图</div>
+            </div>
+            <div class="col" style="width:138px;margin-top:20px;">
+                <div class="button oppobtn vivo-preview" style="line-height:50px !important;">vivo预览图</div>
+            </div>
+            <div class="col" style="width: 138px;margin-top:20px;">
+                <div class="button vivo-auto-screenshot oppobtn">vivo<br />自动截图</div>
             </div>
         </div>
 
@@ -333,12 +353,12 @@
             </div>
         </div>
     </div>
-    
+
     <div class="message m-success animate__animated animate__fadeInDown"></div>
     <div class="message m-error animate__animated animate__fadeInDown"></div>
 
     <div class="version-log">
-        <p>当前版本：v1.2</p>
+        <p>当前版本：1.3.5</p>
         <a href="./logs">查看更新日志</a>
     </div>
 </body>
@@ -349,11 +369,16 @@
     const setPxArr = [
         '/set1920Px',
         '/set2160Px',
+        '/set2256Px',
         '/set2280Px',
+        '/set2316Px',
         '/set2340Px',
+        '/set2376Px',
         '/set2400Px',
+        '/set2408Px',
         '/set2430Px',
-        '/set2520Px',
+        '/set2460Px',
+        '/set3216Px',
         '/set2640Px',
         '/set3168Px',
         '/setDefault'
@@ -418,6 +443,7 @@
     const set0706 = $('.set0706')
     const set0808 = $('.set0808')
     const previewBtn = $('.init-preview')
+    const vivoPreviewBtn = $('.vivo-preview')
 
 
     // 帧动画
@@ -487,6 +513,27 @@
             })
         }
     })
+
+    // vivo 自动截图
+    const vivoAutoShotBtn = $('.vivo-auto-screenshot')
+    vivoAutoShotBtn.onclick = function(){
+        let path = screenshotSavePath.value
+        if (path === '') {
+            showTip(0, '请填写截图保存路径！')
+            return false
+        }
+
+        let url = vivoLockDir.value
+        if (url === '') {
+            showTip(0, '请输入vivo锁屏路径！')
+            return false
+        }
+        url = url.replace(/\\/g, '/')
+        url = url + '/vivo'
+        path = path.replace(/\\/g, '/')
+
+        axios.get('/vivoAutoScreenshot?path=' + path + '&vivourl=' + url)
+    }
 
     // 调整截图大小
     resizeImg.onclick = function(){
@@ -657,6 +704,17 @@
             return false
         }
         axios.get('/generatePreview?path=' + path)
+    }
+
+    // 生成vivo预览图
+    vivoPreviewBtn.onclick = function(){
+        let path = screenshotSavePath.value
+        path = path.replace(/\\/g, '/')
+        if (path === '') {
+            showTip(0, '请填写图片所在目录！')
+            return false
+        }
+        axios.get('/vivoPreview?path=' + path)
     }
 
     // 生成原创声明

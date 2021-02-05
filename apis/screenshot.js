@@ -1,8 +1,11 @@
+const fs = require('fs')
 const childProcess = require('child_process')
 const util = require('util')
 const exec = util.promisify(childProcess.execFile)
 const mvdir = require('mvdir')
 const { resizeOppoImg } = require('../resize')
+const { isDir, delDir } = require('../config')
+
 
 const oneKeyScreenShot = function (req,res) {
     const path = req.query.path
@@ -104,6 +107,61 @@ const oppoHalfAutoScreenShot = function (req,res) {
     })
 }
 
+
+const needCopyFiles = [
+    { name: '/lockscreen', origin: 'C:/tools/bats/自检工具锁屏测试/lockscreen' }
+]
+
+// vivo 自动截图
+const vivoAutoScreenshot = function (req, res) {
+    const path = req.query.path
+    const vivourl = req.query.vivourl
+    isDir(path).then(() => {
+        const copyTasks = needCopyFiles.map(item => {
+            return mvdir(item.origin, path + item.name, { copy: true })
+        })
+        copyTasks.push(mvdir('C:/tools/bats/vivo自动截图.bat', path + '/vivo自动截图.bat', { copy: true }))
+        copyTasks.push(mvdir(vivourl, path + '/vivo', { copy: true }))
+        Promise.all(copyTasks).then(() => {
+            // 执行 bat 文件 进行推送
+            exec(path + '/vivo自动截图.bat', {cwd: path+'/'}).then(() => {
+                res.send({
+                    code: 100,
+                    msg: 'vivo自动截图成功！'
+                })
+                // 删除文件
+                setTimeout(() => {
+                    needCopyFiles.forEach(item => delDir(path + item.name))
+                    fs.unlinkSync(path + '/vivo自动截图.bat')
+                    fs.unlinkSync(path + '/vivo.itz')
+                }, 1000)
+                return false
+            }).catch(err =>{
+                res.send({
+                    code: 0,
+                    msg: 'vivo自动截图失败！原因：' + err
+                })
+                // 删除文件
+                setTimeout(() => {
+                    needCopyFiles.forEach(item => delDir(path + item.name))
+                    fs.unlinkSync(path + '/vivo自动截图.bat')
+                    fs.unlinkSync(path + '/vivo.itz')
+                }, 1000)
+                return false
+            })
+        }).catch(err => {
+            console.log(`拷贝文件失败！${err}`)
+            res.send({
+                code: 0,
+                msg: `拷贝文件失败！${err}`
+            })
+            return false
+        })
+    }).catch(err => {
+        res.send(err)
+    })
+}
+
 // 处理 oppo 预览图
 const generateOppoImg = function (req, res) {
     const path = req.query.path
@@ -123,5 +181,6 @@ module.exports = {
     hw2160ScreenShot,
     oppoAutoScreenShot,
     oppoHalfAutoScreenShot,
-    generateOppoImg
+    generateOppoImg,
+    vivoAutoScreenshot
 }

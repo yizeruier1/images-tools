@@ -25,23 +25,23 @@ function createFrameAnimation (path, frameRate) {
                     const ctx = canvas.getContext('2d')
                     ctx.beginPath()
                     // 不带圆角
-                    // ctx.moveTo(0, unitH*(frameRate - i))
-                    // ctx.lineTo(w, unitH*(frameRate - i))
-                    // ctx.lineTo(w, h)
-                    // ctx.lineTo(0, h)
-                    // ctx.lineTo(0, unitH*(frameRate - i))
+                    ctx.moveTo(0, 0)
+                    ctx.lineTo(w, 0)
+                    ctx.lineTo(w, unitH*i)
+                    ctx.lineTo(0, unitH*i)
+                    ctx.lineTo(0, 0)
 
                     // 带圆角
-                    ctx.moveTo(r, unitH*(frameRate - i))
-                    ctx.lineTo(w - r, unitH*(frameRate - i))
-                    ctx.arcTo(w, unitH*(frameRate - i), w, unitH*(frameRate - i) + r, r)   // 右上角
-                    ctx.lineTo(w, h - r)
-                    ctx.arcTo(w, h, w - r, h, r)   // 右下角
-                    ctx.lineTo(r, h)
-                    ctx.arcTo(0, h, 0, h - r, r)   // 左上角
-                    ctx.lineTo(0, unitH*(frameRate - i) + r)
-                    ctx.arcTo(0, unitH*(frameRate - i), r, unitH*(frameRate - i), r)   // 左下角
-                    ctx.moveTo(r, unitH*(frameRate - i))
+                    // ctx.moveTo(r, unitH*(frameRate - i))
+                    // ctx.lineTo(w - r, unitH*(frameRate - i))
+                    // ctx.arcTo(w, unitH*(frameRate - i), w, unitH*(frameRate - i) + r, r)   // 右上角
+                    // ctx.lineTo(w, h - r)
+                    // ctx.arcTo(w, h, w - r, h, r)   // 右下角
+                    // ctx.lineTo(r, h)
+                    // ctx.arcTo(0, h, 0, h - r, r)   // 左上角
+                    // ctx.lineTo(0, unitH*(frameRate - i) + r)
+                    // ctx.arcTo(0, unitH*(frameRate - i), r, unitH*(frameRate - i), r)   // 左下角
+                    // ctx.moveTo(r, unitH*(frameRate - i))
                     ctx.closePath()
                     ctx.clip()
                     ctx.drawImage(img, 0, 0, w, h)
@@ -63,4 +63,4 @@ function createFrameAnimation (path, frameRate) {
     })
 }
 
-createFrameAnimation('D:/projects/赵依-004-偷吻月亮/锁屏/vivo/page2bat.png', 100)
+createFrameAnimation('D:/projects/一诺-15-充电特效-可爱冲牛年/锁屏/vivo/couplets2.png', 50)
